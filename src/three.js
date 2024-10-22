@@ -1,54 +1,41 @@
-// src/ThreeScene.js
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import * as THREE from 'three';
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader';
 
-const ThreeScene = () => {
-  const mountRef = useRef(null);
+const FBXModel = () => {
+    useEffect(() => {
+        // Configuración de la escena, cámara y renderizador
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
 
-  useEffect(() => {
-    // Crea la escena
-    const scene = new THREE.Scene();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
 
-    // Crea una cámara
-    const camera = new THREE.PerspectiveCamera(
-      75, // Campo de visión
-      window.innerWidth / window.innerHeight, // Aspect ratio
-      0.1, // Plano cercano
-      1000 // Plano lejano
-    );
-    camera.position.z = 5;
+        // Cargar el modelo FBX
+        const loader = new FBXLoader();
+        loader.load('/public/models/model_1.fbx', (object) => {
+            scene.add(object);
+        });
 
-    // Crea un renderizador
-    const renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    mountRef.current.appendChild(renderer.domElement);
+        // Posicionar la cámara
+        camera.position.z = 5;
 
-    // Crea un cubo
-    const geometry = new THREE.BoxGeometry();
-    const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
+        // Animación
+        const animate = () => {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        };
+        animate();
 
-    // Función de animación
-    const animate = () => {
-      requestAnimationFrame(animate);
+        // Limpiar en caso de desmontar el componente
+        return () => {
+            renderer.dispose();
+            document.body.removeChild(renderer.domElement);
+        };
+    }, []);
 
-      // Rotación del cubo
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.01;
-
-      renderer.render(scene, camera);
-    };
-
-    animate();
-
-    // Limpieza al desmontar el componente
-    return () => {
-      mountRef.current.removeChild(renderer.domElement);
-    };
-  }, []);
-
-  return <div ref={mountRef} />;
+    return null; // No renderiza nada en el DOM
 };
 
-export default ThreeScene;
+export default FBXModel;

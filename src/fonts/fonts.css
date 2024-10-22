@@ -1,0 +1,13 @@
+/*Lexend (Titles)*/
+@font-face {
+    font-family:'LexendDeca';
+    font-weight: 400;
+    src: url("LexendDeca-Regular.ttf") format("truetype");
+}
+
+/* KiwiMaru (Paragraphs)*/
+@font-face {
+    font-family:'Kiwi';
+    font-weight: 200;
+    src: url("KiwiMaru-Light.ttf") format("truetype");
+}
