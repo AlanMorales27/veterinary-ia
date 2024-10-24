@@ -1,0 +1,13 @@
+.container-models {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  width: 600px;
+  height: 500px;
+}
+.models {
+  background-color: white;
+  width: 500px;
+  height: 400px;
+}

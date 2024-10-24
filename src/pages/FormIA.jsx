@@ -2,8 +2,7 @@ import {
   OptionInput,
   Box_anamnesis,
 } from "../components/anamnesis/BoxAnamnesis";
-import GLTFModel from "../hooks/three";
-import { FBXLoader } from "three/examples/jsm/Addons.js";
+import ImportModels from "../components/fbxModels/ImportModels";
 
 function FormIA() {
   return (
@@ -22,7 +21,7 @@ function FormIA() {
         <OptionInput text="Raza" type="text" />
         <OptionInput text="Raza" type="text" />
       </Box_anamnesis>
-      <GLTFModel />
+      <ImportModels />
     </div>
   );
 }
